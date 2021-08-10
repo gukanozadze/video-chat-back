@@ -1,0 +1,29 @@
+{
+  "name": "web_rtc_ts_chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "dev": "nodemon src/app.ts",
+    "build": "tsc -p ."
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/socket.io": "^3.0.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.1",
+    "@typescript-eslint/parser": "^4.29.1",
+    "eslint": "^7.32.0",
+    "eslint-plugin-react": "^7.24.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http": "^0.0.1-security",
+    "socket.io": "^4.1.3"
+  }
+}
