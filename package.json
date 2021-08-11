@@ -4,23 +4,24 @@
   "description": "",
   "main": "app.ts",
   "scripts": {
-    "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
     "build": "tsc -p ."
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
+    "@types/simple-peer": "^9.11.1",
     "@types/socket.io": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
-    "eslint": "^7.32.0",
-    "eslint-plugin-react": "^7.24.0"
+    "autoprefixer": "^9",
+    "eslint": "^7.32.0"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^6.2.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http": "^0.0.1-security",

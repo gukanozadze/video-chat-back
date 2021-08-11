@@ -2,7 +2,7 @@ import React, { createContext, useState, useRef, useEffect } from "react"
 import { io } from "socket.io-client"
 import Peer from "simple-peer"
 
-const SocketContext = createContext({})
+const SocketContext = createContext<SocketContextType>({} as SocketContextType)
 
 const socket = io("http://localhost:5000")
 
@@ -14,25 +14,25 @@ const ContextProvider = ({ children }: Props) => {
   const [callEnded, setCallEnded] = useState<boolean>(false)
   const [name, setName] = useState("")
 
-  const myVideo = useRef<any>()
-  const userVideo = useRef<any>()
-  const connectionRef = useRef<any>()
+  const myVideo = useRef<HTMLVideoElement>()
+  const userVideo = useRef<HTMLVideoElement>()
+  const connectionRef = useRef<Peer.Instance>()
 
   useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: true })
-      .then((currentStream) => {
-        setStream(currentStream)
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((currentStream) => {
+      setStream(currentStream)
 
+      if (myVideo.current) {
         myVideo.current.srcObject = currentStream
-      })
+      }
+    })
 
     socket.on("me", (id) => setMe(id))
 
     socket.on("calluser", ({ from, name: callerName, signal }) => {
       setCall({ isReceivedCall: true, signal, from, name: callerName })
     })
-  }, [])
+  }, [""])
   const answerCall = () => {
     setCallAccepted(true)
 
@@ -43,7 +43,9 @@ const ContextProvider = ({ children }: Props) => {
     })
 
     peer.on("stream", (currentStream) => {
-      userVideo.current.srcObject = currentStream
+      if (userVideo.current) {
+        userVideo.current.srcObject = currentStream
+      }
     })
 
     peer.signal(call.signal)
@@ -64,7 +66,9 @@ const ContextProvider = ({ children }: Props) => {
     })
 
     peer.on("stream", (currentStream) => {
-      userVideo.current.srcObject = currentStream
+      if (userVideo.current) {
+        userVideo.current.srcObject = currentStream
+      }
     })
 
     socket.on("callaccepted", (signal) => {
@@ -78,7 +82,9 @@ const ContextProvider = ({ children }: Props) => {
 
   const leaveCall = () => {
     setCallEnded(true)
-    connectionRef.current.destroy()
+    if (connectionRef.current) {
+      connectionRef.current.destroy()
+    }
 
     window.location.reload()
   }
@@ -93,6 +99,20 @@ const ContextProvider = ({ children }: Props) => {
 
 interface Props {
   children: any
+}
+interface SocketContextType {
+  call: any
+  callAccepted: any
+  myVideo: any
+  userVideo: any
+  stream: any
+  name: any
+  setName: any
+  callEnded: any
+  me: any
+  callUser: any
+  leaveCall: any
+  answerCall: any
 }
 interface Call {
   isReceivedCall: boolean

@@ -6,8 +6,7 @@ import Notifications from "./components/Notifications"
 
 const App = () => {
   return (
-    <div className="container mx-auto">
-      <h1>Video Chat</h1>
+    <div className="bg-gray-900">
       <VideoPlayer />
       <Options>
         <Notifications />
