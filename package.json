@@ -13,8 +13,7 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "build": "tsc -p .",
-    "postinstall": "yarn run tsc",
-    "tsc": "tsc",
+    "postinstall": "yarn run build",
     "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "devDependencies": {
