@@ -4,18 +4,18 @@ import Peer from "simple-peer"
 
 const SocketContext = createContext<SocketContextType>({} as SocketContextType)
 
-const socket = io("http://localhost:5000")
+const socket = io("http://localhost:8000")
 
 const ContextProvider = ({ children }: Props) => {
   const [stream, setStream] = useState<MediaStream | undefined>(undefined)
   const [me, setMe] = useState<string>("")
-  const [call, setCall] = useState<Partial<Call>>({})
+  const [call, setCall] = useState<Call>({})
   const [callAccepted, setCallAccepted] = useState<boolean>(false)
   const [callEnded, setCallEnded] = useState<boolean>(false)
   const [name, setName] = useState("")
 
-  const myVideo = useRef<HTMLVideoElement>()
-  const userVideo = useRef<HTMLVideoElement>()
+  const myVideo = useRef<HTMLVideoElement>(null)
+  const userVideo = useRef<HTMLVideoElement>(null)
   const connectionRef = useRef<Peer.Instance>()
 
   useEffect(() => {
@@ -30,9 +30,10 @@ const ContextProvider = ({ children }: Props) => {
     socket.on("me", (id) => setMe(id))
 
     socket.on("calluser", ({ from, name: callerName, signal }) => {
-      setCall({ isReceivedCall: true, signal, from, name: callerName })
+      setCall({ isReceivingCall: true, from, name: callerName, signal })
     })
-  }, [""])
+  }, [])
+
   const answerCall = () => {
     setCallAccepted(true)
 
@@ -57,12 +58,7 @@ const ContextProvider = ({ children }: Props) => {
     const peer = new Peer({ initiator: true, trickle: false, stream })
 
     peer.on("signal", (data) => {
-      socket.emit("calluser", {
-        userToCall: id,
-        signalData: data,
-        from: me,
-        me: name,
-      })
+      socket.emit("calluser", { userToCall: id, signalData: data, from: me, name })
     })
 
     peer.on("stream", (currentStream) => {
@@ -101,24 +97,24 @@ interface Props {
   children: any
 }
 interface SocketContextType {
-  call: any
-  callAccepted: any
+  call: Call
+  callAccepted: boolean
   myVideo: any
   userVideo: any
   stream: any
-  name: any
+  name: string
   setName: any
   callEnded: any
-  me: any
+  me: string
   callUser: any
   leaveCall: any
   answerCall: any
 }
 interface Call {
-  isReceivedCall: boolean
-  from: any
-  name: string
-  signal: any
+  isReceivingCall?: boolean
+  from?: string
+  name?: string
+  signal?: any
 }
 
 export { ContextProvider, SocketContext }

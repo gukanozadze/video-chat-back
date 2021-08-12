@@ -1,8 +1,11 @@
 {
   "name": "web_rtc_ts_chat",
   "version": "1.0.0",
-  "description": "",
+  "description": "WebRTC Video Chat backend",
   "main": "app.ts",
+  "keywords": [],
+  "author": "Guka Nozadze",
+  "license": "ISC",
   "scripts": {
     "dev": "nodemon src/app.ts",
     "build": "tsc -p ."
@@ -17,9 +20,6 @@
     "autoprefixer": "^9",
     "eslint": "^7.32.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "concurrently": "^6.2.1",
     "cors": "^2.8.5",
