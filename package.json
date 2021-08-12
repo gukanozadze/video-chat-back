@@ -6,6 +6,10 @@
   "keywords": [],
   "author": "Guka Nozadze",
   "license": "ISC",
+  "engines": {
+    "node": ">=12.0.0",
+    "npm": ">=6.0.0"
+  },
   "scripts": {
     "dev": "nodemon src/app.ts",
     "build": "tsc -p ."
