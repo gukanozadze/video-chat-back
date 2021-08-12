@@ -13,6 +13,7 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "build": "tsc -p .",
+    "postinstall": "tsc",
     "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "devDependencies": {
