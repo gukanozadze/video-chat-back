@@ -4,7 +4,7 @@ import Peer from "simple-peer"
 
 const SocketContext = createContext<SocketContextType>({} as SocketContextType)
 
-const socket = io("http://localhost:8000")
+const socket = io(process.env.API || "http://localhost:8000")
 
 const ContextProvider = ({ children }: Props) => {
   const [stream, setStream] = useState<MediaStream | undefined>(undefined)
