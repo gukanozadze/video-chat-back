@@ -7,13 +7,14 @@
   "author": "Guka Nozadze",
   "license": "ISC",
   "engines": {
-    "node": ">=12.0.0",
-    "npm": ">=6.0.0"
+    "node": "12.18.4",
+    "npm": "7.0.15"
   },
   "scripts": {
     "dev": "nodemon src/app.ts",
-    "build": "tsc -p .",
+    "start": "node dist/app.js",
     "postinstall": "yarn run build",
+    "build": "tsc -p .",
     "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "devDependencies": {
