@@ -12,7 +12,8 @@
   },
   "scripts": {
     "dev": "nodemon src/app.ts",
-    "build": "tsc -p ."
+    "build": "tsc -p .",
+    "deploy": "git add . && git commit -m Heroku && git push heroku main"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
